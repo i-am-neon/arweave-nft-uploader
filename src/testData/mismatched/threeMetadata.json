@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Business Doge",
+    "description": "The doges living immutably on Ethereum and Arweave have come to take over the metaverse!",
+    "image": "",
+    "attributes": [
+      {
+        "trait_type": "Favorite Color",
+        "value": "Black"
+      },
+      {
+        "trait_type": "Cuteness Level",
+        "value": "Too much"
+      },
+      {
+        "trait_type": "Fur Type",
+        "value": "Sharp"
+      }
+    ]
+  },
+  {
+    "name": "Surfing Doge",
+    "description": "The doges living immutably on Ethereum and Arweave have come to take over the metaverse!",
+    "image": "",
+    "attributes": [
+      {
+        "trait_type": "Favorite Color",
+        "value": "Blue"
+      },
+      {
+        "trait_type": "Cuteness Level",
+        "value": "Extreme"
+      },
+      {
+        "trait_type": "Fur Type",
+        "value": "Wet"
+      }
+    ]
+  },
+  {
+    "name": "President Doge",
+    "description": "The doges living immutably on Ethereum and Arweave have come to take over the metaverse!",
+    "image": "",
+    "attributes": [
+      {
+        "trait_type": "Favorite Color",
+        "value": "Tied between red, white, and blue"
+      },
+      {
+        "trait_type": "Cuteness Level",
+        "value": "Average"
+      },
+      {
+        "trait_type": "Fur Type",
+        "value": "Soft"
+      }
+    ]
+  }
+]

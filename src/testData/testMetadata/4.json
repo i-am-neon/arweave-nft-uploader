@@ -1,0 +1,19 @@
+{
+    "name": "Hipster Doge",
+    "description": "The doges living immutably on Ethereum and Arweave have come to take over the metaverse!",
+    "image": "",
+    "attributes": [
+      {
+        "trait_type": "Favorite Color",
+        "value": "Mauve"
+      },
+      {
+        "trait_type": "Cuteness Level",
+        "value": "Just enough"
+      },
+      {
+        "trait_type": "Fur Type",
+        "value": "You can't touch it"
+      }
+    ]
+  }

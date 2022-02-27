@@ -1,0 +1,19 @@
+{
+    "name": "Business Doge",
+    "description": "The doges living immutably on Ethereum and Arweave have come to take over the metaverse!",
+    "image": "",
+    "attributes": [
+      {
+        "trait_type": "Favorite Color",
+        "value": "Black"
+      },
+      {
+        "trait_type": "Cuteness Level",
+        "value": "Too much"
+      },
+      {
+        "trait_type": "Fur Type",
+        "value": "Sharp"
+      }
+    ]
+  }
