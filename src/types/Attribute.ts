@@ -1,4 +1,4 @@
 export type Attribute = {
-    trait_type: string,
-    value: string
-  }
+  trait_type: string;
+  value: string;
+};
