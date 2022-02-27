@@ -5,7 +5,7 @@ import {
   getImageContentType,
   getListFromFullMetadata,
   updateMetadataWithImageURI,
-} from '../fileUtils';
+} from '../utils/fileUtils';
 import * as metadata1 from '../testData/testMetadata/1.json';
 import * as metadata2 from '../testData/testMetadata/2.json';
 import * as metadata3 from '../testData/testMetadata/3.json';

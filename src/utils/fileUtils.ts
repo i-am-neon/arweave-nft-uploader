@@ -1,5 +1,5 @@
 import { readdirSync, statSync, readFileSync } from 'fs';
-import { Metadata } from './types/Metadata';
+import { Metadata } from '../types/Metadata';
 
 export const getFileSizeInBytes = (path: string): number => {
   return statSync(path).size;
