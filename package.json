@@ -4,7 +4,6 @@
   "description": "Easily upload images and metadata for your Ethereum (and other) NFTs to Arweave for permanent storage. Compatible with OpenSea!",
   "main": "index.js",
   "scripts": {
-    "main": "npx ts-node src/main.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
