@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {
   getCostOfARInDollars,
+  getCostToSaveBytesToArweaveInAR,
+  getCostToSaveBytesToArweaveInDollars,
   getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
   getCostToSavePathToArweaveInWinstons,
@@ -71,12 +73,38 @@ describe('Arweave cost estimator', () => {
     const costInWinstons = 50000;
     const costInAR = costInWinstons / WINSTONS_PER_AR;
     const expectedCostInDollars = costInAR * mockedARCostInDollars;
-
-    // have getArweavePriceForBytesInWinstons(...) return costInWinstons
     jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValueOnce(bytes);
     jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockReturnValueOnce(Promise.resolve(costInWinstons));
 
     const actualCostInDollars = await getCostToSavePathToArweaveInDollars('');
+
+    expect(actualCostInDollars).toBe(expectedCostInDollars);
+  });
+
+  it('should get the cost in AR of saving a given number of bytes', async () => {
+    const bytes = 100;
+    const costInWinstons = 99999;
+    const spyFileUtilsGetArweavePriceForBytesInWinstons = jest
+      .spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons')
+      .mockReturnValue(Promise.resolve(costInWinstons));
+    const expectedCost = await getCostToSavePathToArweaveInWinstons('').then((costWinstons: number) =>
+      winstonsToAR(costWinstons),
+    );
+
+    const actualCost = await getCostToSaveBytesToArweaveInAR(bytes);
+
+    expect(actualCost).toBe(expectedCost);
+    expect(spyFileUtilsGetArweavePriceForBytesInWinstons).toBeCalledWith(bytes);
+  });
+
+  it('should get the cost in Dollars of saving a given directory', async () => {
+    const bytes = 100;
+    const costInWinstons = 50000;
+    const costInAR = costInWinstons / WINSTONS_PER_AR;
+    const expectedCostInDollars = costInAR * mockedARCostInDollars;
+    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockReturnValueOnce(Promise.resolve(costInWinstons));
+
+    const actualCostInDollars = await getCostToSaveBytesToArweaveInDollars(bytes);
 
     expect(actualCostInDollars).toBe(expectedCostInDollars);
   });

@@ -39,6 +39,12 @@ const totalCostInDollars = costToUploadImagesInDollars + costToUploadMetadataInD
 console.log('Total cost: $' + totalCostInDollars)
 ```
 
+Or, you may get the cost of uploading a given number of bytes:
+```
+await getCostToSaveBytesToArweaveInAR(1024);
+await getCostToSaveBytesToArweaveInDollars(1024);
+```
+
 ## Uploading
 
 ### Using ArLocal for testing

@@ -25,22 +25,38 @@ const getCostOfARInDollars = async (): Promise<number> => {
   return response.data.arweave.usd;
 };
 
-const getCostToSavePathToArweaveInAR = async (path: string) => {
+const getCostToSaveBytesToArweaveInAR = async (bytes: number): Promise<number> => {
+  const priceInWinstons = await getArweavePriceForBytesInWinstons(bytes);
+  return winstonsToAR(priceInWinstons);
+}
+
+const getCostToSaveBytesToArweaveInDollars = async (bytes: number): Promise<number> => {
+  const priceInWinstons = await getArweavePriceForBytesInWinstons(bytes);
+  return await convertWinstonsToDollars(priceInWinstons);
+}
+
+const getCostToSavePathToArweaveInAR = async (path: string): Promise<number> => {
   const priceInWinstons = await getCostToSavePathToArweaveInWinstons(path);
   return winstonsToAR(priceInWinstons);
 };
 
-const getCostToSavePathToArweaveInDollars = async (path: string) => {
+const getCostToSavePathToArweaveInDollars = async (path: string): Promise<number> => {
   const priceInWinstons = await getCostToSavePathToArweaveInWinstons(path);
+  return await convertWinstonsToDollars(priceInWinstons);
+};
+
+const convertWinstonsToDollars = async (priceInWinstons: number): Promise<number> => {
   const priceInAR = winstonsToAR(priceInWinstons);
   const arToUSD = await getCostOfARInDollars();
   return priceInAR * arToUSD;
-};
+}
 
 export {
   getCostToSavePathToArweaveInWinstons,
   winstonsToAR,
   getCostOfARInDollars,
+  getCostToSaveBytesToArweaveInAR,
+  getCostToSaveBytesToArweaveInDollars,
   getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
 };
