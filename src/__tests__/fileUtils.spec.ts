@@ -6,10 +6,10 @@ import {
   getListFromFullMetadata,
   updateMetadataWithImageURI,
 } from '../utils/fileUtils';
-import * as metadata1 from '../testData/testMetadata/1.json';
-import * as metadata2 from '../testData/testMetadata/2.json';
-import * as metadata3 from '../testData/testMetadata/3.json';
-import * as metadata4 from '../testData/testMetadata/4.json';
+import metadata1 from '../testData/testMetadata/1.json';
+import metadata2 from '../testData/testMetadata/2.json';
+import metadata3 from '../testData/testMetadata/3.json';
+import metadata4 from '../testData/testMetadata/4.json';
 import { Metadata } from '../types/Metadata';
 
 const currentMachineIsWindows = process.platform === 'win32';

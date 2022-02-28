@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { COINGECKO_BASE_URL, WINSTONS_PER_AR } from '../constants';
 import { getArweavePriceForBytesInWinstons } from './arweaveUtils';
-import { getPathSizeInBytes } from './fileUtils';
+import { getPathSizeInBytes } from '../utils/fileUtils';
 
 
 interface CoinGeckoARToUSDPriceResponse {
