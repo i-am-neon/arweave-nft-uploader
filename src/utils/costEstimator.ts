@@ -18,23 +18,29 @@ const winstonsToAR = (winstons: number): number => {
   return winstons / WINSTONS_PER_AR;
 };
 
-const getCostOfOneARInDollars = async (): Promise<number> => {
+const getCostOfARInDollars = async (): Promise<number> => {
   const response = await axios.get<CoinGeckoARToUSDPriceResponse>(
     COINGECKO_BASE_URL + 'simple/price?ids=arweave&vs_currencies=usd',
   );
   return response.data.arweave.usd;
 };
 
+const getCostToSavePathToArweaveInAR = async (path: string) => {
+  const priceInWinstons = await getCostToSavePathToArweaveInWinstons(path);
+  return winstonsToAR(priceInWinstons);
+};
+
 const getCostToSavePathToArweaveInDollars = async (path: string) => {
   const priceInWinstons = await getCostToSavePathToArweaveInWinstons(path);
   const priceInAR = winstonsToAR(priceInWinstons);
-  const arToUSD = await getCostOfOneARInDollars();
+  const arToUSD = await getCostOfARInDollars();
   return priceInAR * arToUSD;
 };
 
 export {
   getCostToSavePathToArweaveInWinstons,
   winstonsToAR,
-  getCostOfOneARInDollars,
+  getCostOfARInDollars as getCostOfOneARInDollars,
+  getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
 };

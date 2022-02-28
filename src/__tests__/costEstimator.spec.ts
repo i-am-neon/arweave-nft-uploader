@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   getCostOfOneARInDollars,
+  getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
   getCostToSavePathToArweaveInWinstons,
   winstonsToAR,
@@ -49,6 +50,20 @@ describe('Arweave cost estimator', () => {
     expect(actualCost).toBe(costInWinstons);
     expect(spy_fileUtils_getPathSizeInBytes).toBeCalledTimes(1);
     expect(spy_fileUtils_getArweavePriceForBytesInWinstons).toBeCalledWith(bytes);
+  });
+
+  it('should get the cost in AR of saving a given directory', async () => {
+    const bytes = 100;
+    const costInWinstons = 99999;
+    jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValue(bytes);
+    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons')
+      .mockReturnValue(Promise.resolve(costInWinstons));
+    const expectedCost = await getCostToSavePathToArweaveInWinstons('')
+      .then((costInWinstons: number) => winstonsToAR(costInWinstons));
+
+    const actualCost = await getCostToSavePathToArweaveInAR('');
+
+    expect(actualCost).toBe(expectedCost);
   });
 
   it('should get the cost in Dollars of saving a given directory', async () => {
