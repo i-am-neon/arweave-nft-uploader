@@ -28,12 +28,12 @@ const getCostOfARInDollars = async (): Promise<number> => {
 const getCostToSaveBytesToArweaveInAR = async (bytes: number): Promise<number> => {
   const priceInWinstons = await getArweavePriceForBytesInWinstons(bytes);
   return winstonsToAR(priceInWinstons);
-}
+};
 
 const getCostToSaveBytesToArweaveInDollars = async (bytes: number): Promise<number> => {
   const priceInWinstons = await getArweavePriceForBytesInWinstons(bytes);
   return await convertWinstonsToDollars(priceInWinstons);
-}
+};
 
 const getCostToSavePathToArweaveInAR = async (path: string): Promise<number> => {
   const priceInWinstons = await getCostToSavePathToArweaveInWinstons(path);
@@ -49,7 +49,7 @@ const convertWinstonsToDollars = async (priceInWinstons: number): Promise<number
   const priceInAR = winstonsToAR(priceInWinstons);
   const arToUSD = await getCostOfARInDollars();
   return priceInAR * arToUSD;
-}
+};
 
 export {
   getCostToSavePathToArweaveInWinstons,
