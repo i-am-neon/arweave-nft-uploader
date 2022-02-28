@@ -1,6 +1,6 @@
 {
   "name": "arweave-nft-uploader",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Easily upload images and metadata for your Ethereum (and other) NFTs to Arweave for permanent storage. Compatible with OpenSea!",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

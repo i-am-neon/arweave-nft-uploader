@@ -52,9 +52,7 @@ describe('arweaveUtils', () => {
       .spyOn(arweave, 'createTransaction')
       .mockReturnValueOnce(Promise.resolve(tx));
     const spyTransactionAddTag = jest.spyOn(Transaction.prototype, 'addTag');
-    const spyArweaveTransactionsSign = jest
-      .spyOn(arweave.transactions, 'sign')
-      .mockReturnValueOnce(Promise.resolve());
+    const spyArweaveTransactionsSign = jest.spyOn(arweave.transactions, 'sign').mockReturnValueOnce(Promise.resolve());
     const spyArweaveTransactionsGetUploader = jest
       .spyOn(arweave.transactions, 'getUploader')
       .mockReturnValueOnce(Promise.resolve(txUploader));
