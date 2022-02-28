@@ -31,7 +31,6 @@ const connectToLocalArweave = async (): Promise<Arweave> => {
     protocol: 'http',
     logging: true,
   });
-
 };
 
 const generateTestKey = async (arweave: Arweave): Promise<JWKInterface> => {

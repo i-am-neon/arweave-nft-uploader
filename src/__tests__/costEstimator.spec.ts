@@ -56,10 +56,10 @@ describe('Arweave cost estimator', () => {
     const bytes = 100;
     const costInWinstons = 99999;
     jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValue(bytes);
-    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons')
-      .mockReturnValue(Promise.resolve(costInWinstons));
-    const expectedCost = await getCostToSavePathToArweaveInWinstons('')
-      .then((costInWinstons: number) => winstonsToAR(costInWinstons));
+    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockReturnValue(Promise.resolve(costInWinstons));
+    const expectedCost = await getCostToSavePathToArweaveInWinstons('').then((costInWinstons: number) =>
+      winstonsToAR(costInWinstons),
+    );
 
     const actualCost = await getCostToSavePathToArweaveInAR('');
 

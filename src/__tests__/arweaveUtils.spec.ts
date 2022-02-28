@@ -89,7 +89,6 @@ describe('arweaveUtils', () => {
       expect(spy_arLocal_start).toBeCalledTimes(1);
       expect(spy_Arweave_init).toBeCalledWith(expectedArweaveInitParams);
       expect(expectedArweaveInstance).toBe(actualArweaveInstance);
-
     });
 
     it('should create a new Arweave test wallet and load with money', async () => {
