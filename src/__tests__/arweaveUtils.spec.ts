@@ -84,14 +84,12 @@ describe('arweaveUtils', () => {
         logging: true,
       };
 
-      const { arLocal, arweave: actualArweaveInstance } = await connectToLocalArweave();
+      const actualArweaveInstance = await connectToLocalArweave();
 
       expect(spy_arLocal_start).toBeCalledTimes(1);
       expect(spy_Arweave_init).toBeCalledWith(expectedArweaveInitParams);
       expect(expectedArweaveInstance).toBe(actualArweaveInstance);
 
-      // teardown
-      await arLocal.stop();
     });
 
     it('should create a new Arweave test wallet and load with money', async () => {

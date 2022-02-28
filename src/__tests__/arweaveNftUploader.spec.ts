@@ -1,23 +1,24 @@
 import * as dataUploader from '../utils/dataUploader';
 import * as fileUtils from '../utils/fileUtils';
+import * as arweaveUtils from '../utils/arweaveUtils';
 import testArweaveKey from '../testData/testArweaveKey.json';
 import Arweave from 'arweave';
 import { ARLOCAL_BASE_URL } from '../constants';
-import { ArweaveNftUploader, uploadImageAndMetadata, uploadImageDirAndFullMetadataFile } from '../utils/arweaveNftUploader';
+import ArweaveNftUploader from '../utils/arweaveNftUploader';
 import singleMetadata from '../testData/testMetadata/1.json';
 
-describe('arweaveNftUploader', () => {
+describe('arweaveNftUploader not mainnet', () => {
     let arweave: Arweave;
+    const isMainnet = false;
+    let arweaveNftUploader: ArweaveNftUploader;
 
     beforeEach(() => {
         arweave = Arweave.init({});
+        arweaveNftUploader = new ArweaveNftUploader(arweave, testArweaveKey, isMainnet);
     });
 
-    it('should create a new instance of the class with correct values', () => {
-        const isMainnet = false;
-        
-        const arweaveNftUploader = new ArweaveNftUploader(testArweaveKey, isMainnet);
-
+    it('should create a new instance of the class with correct values if not mainnet', () => {
+        expect(arweaveNftUploader.arweaveInstance).toBe(arweave)
         expect(arweaveNftUploader.key).toBe(testArweaveKey);
         expect(arweaveNftUploader.isMainnet).toBe(isMainnet);
     });
@@ -27,7 +28,7 @@ describe('arweaveNftUploader', () => {
         const fullMetadataPath = 'src/testData/mismatched/threeMetadata.json';
         const isProd = false;
 
-        expect(async () => await uploadImageDirAndFullMetadataFile(arweave, testArweaveKey, imagePath, fullMetadataPath, isProd))
+        expect(async () => await arweaveNftUploader.uploadImageDirAndFullMetadataFile(imagePath, fullMetadataPath))
             .rejects
             .toThrow("The count of images does not equal the count of metadata objects.");
 
@@ -44,7 +45,7 @@ describe('arweaveNftUploader', () => {
         jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx));
         jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx));
 
-        const actualMetadataURI = await uploadImageAndMetadata(arweave, testArweaveKey, imagePath, singleMetadata, isProd);
+        const actualMetadataURI = await arweaveNftUploader.uploadSingleImageAndMetadataObject(arweave, testArweaveKey, imagePath, singleMetadata, isProd);
 
         expect(spy_fileUtils_updateMetadataWithImageURI).toBeCalledWith(singleMetadata, expectedImageURI);
         expect(expectedMetadataURI).toBe(actualMetadataURI);
@@ -88,7 +89,7 @@ describe('arweaveNftUploader', () => {
         jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx4));
         jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx4));
 
-        const txnList = await uploadImageDirAndFullMetadataFile(arweave, testArweaveKey, imageDirPath, fullMetadataPath, isProd);
+        const txnList = await arweaveNftUploader.uploadImageDirAndFullMetadataFile(imageDirPath, fullMetadataPath);
 
         expect(spy_fileUtils_updateMetadataWithImageURI).nthCalledWith(1, expect.any(Object), expectedImageURI1);
         expect(spy_fileUtils_updateMetadataWithImageURI).nthCalledWith(2, expect.any(Object), expectedImageURI2);

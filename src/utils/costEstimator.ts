@@ -40,7 +40,7 @@ const getCostToSavePathToArweaveInDollars = async (path: string) => {
 export {
   getCostToSavePathToArweaveInWinstons,
   winstonsToAR,
-  getCostOfARInDollars as getCostOfOneARInDollars,
+  getCostOfARInDollars,
   getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
 };

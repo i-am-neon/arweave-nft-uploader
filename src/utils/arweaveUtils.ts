@@ -2,7 +2,7 @@ import axios from 'axios';
 import Arweave from 'arweave';
 import ArLocal from 'arlocal';
 import { JWKInterface } from 'arweave/node/lib/wallet';
-import { ARLOCAL_BASE_URL, ARWEAVE_BASE_URL } from '../constants';
+import { ARLOCAL_BASE_URL, ARWEAVE_BASE_URL, WINSTONS_PER_AR } from '../constants';
 
 const getArweavePriceForBytesInWinstons = async (bytes: number): Promise<number> => {
   const price = await axios.get<string>(ARWEAVE_BASE_URL + 'price/' + bytes);
@@ -21,23 +21,22 @@ const connectToArweave = (): Arweave => {
   return arweave;
 };
 
-const connectToLocalArweave = async (): Promise<{ arLocal: ArLocal; arweave: Arweave }> => {
+const connectToLocalArweave = async (): Promise<Arweave> => {
   const arLocal = new ArLocal();
   await arLocal.start();
 
-  const arweave = Arweave.init({
+  return Arweave.init({
     host: 'localhost',
     port: 1984,
     protocol: 'http',
     logging: true,
   });
 
-  return { arLocal, arweave };
 };
 
 const generateTestKey = async (arweave: Arweave): Promise<JWKInterface> => {
   const key = await arweave.wallets.generate();
-  await mintTestWinstonsToKey(arweave, 100000000, key);
+  await mintTestWinstonsToKey(arweave, 1000 * WINSTONS_PER_AR, key);
   return key;
 };
 

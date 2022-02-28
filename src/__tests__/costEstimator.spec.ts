@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  getCostOfOneARInDollars,
+  getCostOfARInDollars,
   getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
   getCostToSavePathToArweaveInWinstons,
@@ -32,7 +32,7 @@ describe('Arweave cost estimator', () => {
   });
 
   it('should get the price of AR in dollars', async () => {
-    const actualCostInDollars = await getCostOfOneARInDollars();
+    const actualCostInDollars = await getCostOfARInDollars();
 
     expect(mockedARCostInDollars).toBe(actualCostInDollars);
   });
