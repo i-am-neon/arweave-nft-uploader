@@ -1,11 +1,11 @@
 # arweave-nft-uploader
- Easily upload images and metadata for your Ethereum NFTs to Arweave. Compatible with OpenSea!
+If you're creating Eth NFTs and want to save the images and metadata permanently to Arweave, you've come to the right place. All you need to do is give this library your images and metadata and it will give you a list of Arweave URIs that you can use as the TokenURIs when you mint your NFTs.
 
  How to install:
 ```
 npm i arweave-nft-uploader
 ```
-
+or
 ```
 yarn add arweave-nft-uploader
 ```

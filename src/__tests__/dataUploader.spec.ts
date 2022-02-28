@@ -18,13 +18,13 @@ describe('dataUploader', () => {
     const expectedData = readFileSync(path);
     const expectedContentType = 'image/jpg';
     const expectedImageTx = '123abc';
-    const spy_arweaveUtils_uploadDataToArweave = jest
+    const spyArweaveUtilsUploadDataToArweave = jest
       .spyOn(arweaveUtils, 'uploadDataToArweave')
       .mockReturnValueOnce(Promise.resolve(expectedImageTx));
 
     const actualImageTx = await uploadImage(arweave, testArweaveKey, path);
 
-    expect(spy_arweaveUtils_uploadDataToArweave).toBeCalledWith(
+    expect(spyArweaveUtilsUploadDataToArweave).toBeCalledWith(
       arweave,
       testArweaveKey,
       expectedData,
@@ -37,13 +37,13 @@ describe('dataUploader', () => {
     const metadataString = JSON.stringify(testMetadata);
     const expectedContentType = 'text/json';
     const expectedMetadataTx = '123abc';
-    const spy_arweaveUtils_uploadDataToArweave = jest
+    const spyArweaveUtilsUploadDataToArweave = jest
       .spyOn(arweaveUtils, 'uploadDataToArweave')
       .mockReturnValueOnce(Promise.resolve(expectedMetadataTx));
 
     const actualMetadataTx = await uploadSingleMetadata(arweave, testArweaveKey, testMetadata);
 
-    expect(spy_arweaveUtils_uploadDataToArweave).toBeCalledWith(
+    expect(spyArweaveUtilsUploadDataToArweave).toBeCalledWith(
       arweave,
       testArweaveKey,
       metadataString,

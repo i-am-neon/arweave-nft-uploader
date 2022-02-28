@@ -36,7 +36,7 @@ describe('arweaveNftUploader not mainnet', () => {
   it("should upload an image and the image's metadata with the image txn", async () => {
     const imagePath = 'src/testData/testImages/1.jpg';
     const isProd = false;
-    const spy_fileUtils_updateMetadataWithImageURI = jest.spyOn(fileUtils, 'updateMetadataWithImageURI');
+    const spyFileUtilsUpdateMetadataWithImageURI = jest.spyOn(fileUtils, 'updateMetadataWithImageURI');
     const imageTx = 'ImageTx';
     const expectedImageURI = ARLOCAL_BASE_URL + imageTx;
     const metadataTx = 'MetadataTx';
@@ -52,15 +52,14 @@ describe('arweaveNftUploader not mainnet', () => {
       isProd,
     );
 
-    expect(spy_fileUtils_updateMetadataWithImageURI).toBeCalledWith(singleMetadata, expectedImageURI);
+    expect(spyFileUtilsUpdateMetadataWithImageURI).toBeCalledWith(singleMetadata, expectedImageURI);
     expect(expectedMetadataURI).toBe(actualMetadataURI);
   });
 
   it("should upload all images in a dir and upload those image's metadata with the image txns", async () => {
     const imageDirPath = 'src/testData/testImages';
     const fullMetadataPath = 'src/testData/testMetadata/testMetadata.json';
-    const isProd = false;
-    const spy_fileUtils_updateMetadataWithImageURI = jest.spyOn(fileUtils, 'updateMetadataWithImageURI').mockClear();
+    const spyFileUtilsUpdateMetadataWithImageURI = jest.spyOn(fileUtils, 'updateMetadataWithImageURI').mockClear();
 
     // First image and metadata
     const imageTx1 = 'ImageTx1';
@@ -96,10 +95,10 @@ describe('arweaveNftUploader not mainnet', () => {
 
     const txnList = await arweaveNftUploader.uploadImageDirAndFullMetadataFile(imageDirPath, fullMetadataPath);
 
-    expect(spy_fileUtils_updateMetadataWithImageURI).nthCalledWith(1, expect.any(Object), expectedImageURI1);
-    expect(spy_fileUtils_updateMetadataWithImageURI).nthCalledWith(2, expect.any(Object), expectedImageURI2);
-    expect(spy_fileUtils_updateMetadataWithImageURI).nthCalledWith(3, expect.any(Object), expectedImageURI3);
-    expect(spy_fileUtils_updateMetadataWithImageURI).nthCalledWith(4, expect.any(Object), expectedImageURI4);
+    expect(spyFileUtilsUpdateMetadataWithImageURI).nthCalledWith(1, expect.any(Object), expectedImageURI1);
+    expect(spyFileUtilsUpdateMetadataWithImageURI).nthCalledWith(2, expect.any(Object), expectedImageURI2);
+    expect(spyFileUtilsUpdateMetadataWithImageURI).nthCalledWith(3, expect.any(Object), expectedImageURI3);
+    expect(spyFileUtilsUpdateMetadataWithImageURI).nthCalledWith(4, expect.any(Object), expectedImageURI4);
     expect(txnList).toEqual([expectedMetadataURI1, expectedMetadataURI2, expectedMetadataURI3, expectedMetadataURI4]);
   });
 });

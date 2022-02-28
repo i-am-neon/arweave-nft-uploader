@@ -40,16 +40,16 @@ describe('Arweave cost estimator', () => {
   it('should get the cost in Winstons of saving a given directory', async () => {
     const bytes = 100;
     const costInWinstons = 99999;
-    const spy_fileUtils_getPathSizeInBytes = jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValueOnce(bytes);
-    const spy_fileUtils_getArweavePriceForBytesInWinstons = jest
+    const spyGileUtilsGetPathSizeInBytes = jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValueOnce(bytes);
+    const spyFileUtilsGetArweavePriceForBytesInWinstons = jest
       .spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons')
       .mockReturnValueOnce(Promise.resolve(costInWinstons));
 
     const actualCost = await getCostToSavePathToArweaveInWinstons('');
 
     expect(actualCost).toBe(costInWinstons);
-    expect(spy_fileUtils_getPathSizeInBytes).toBeCalledTimes(1);
-    expect(spy_fileUtils_getArweavePriceForBytesInWinstons).toBeCalledWith(bytes);
+    expect(spyGileUtilsGetPathSizeInBytes).toBeCalledTimes(1);
+    expect(spyFileUtilsGetArweavePriceForBytesInWinstons).toBeCalledWith(bytes);
   });
 
   it('should get the cost in AR of saving a given directory', async () => {
