@@ -1,6 +1,15 @@
 # arweave-nft-uploader
  Easily upload images and metadata for your Ethereum NFTs to Arweave. Compatible with OpenSea!
 
+ How to install:
+```
+npm i arweave-nft-uploader
+```
+
+```
+yarn add arweave-nft-uploader
+```
+
 ## The correct shape of your images and metadata
 
 - Your images should be in one directory and your corresponding metadata should be in a single `JSON` file as an array of objects. See the `exampleData` directory for the correct structure
