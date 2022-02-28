@@ -3,7 +3,7 @@ import {
   getCostToSavePathToArweaveInAR,
   getCostToSavePathToArweaveInDollars,
   getCostToSaveBytesToArweaveInAR,
-  getCostToSaveBytesToArweaveInDollars
+  getCostToSaveBytesToArweaveInDollars,
 } from './utils/costEstimator';
 import { connectToLocalArweave, connectToArweave, mintTestWinstonsToKey } from './utils/arweaveUtils';
 import ArweaveNftUploader from './utils/arweaveNftUploader';
