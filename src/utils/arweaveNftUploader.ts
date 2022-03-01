@@ -23,10 +23,20 @@ export default class ArweaveNftUploader {
   };
 
   uploadSingleImagePathAndMetadataObject = async (imagePath: string, metadata: Metadata): Promise<string> => {
+    console.log('========');
+    console.log('calling uploadSingleImagePathAndMetadataObject with params:');
+    console.log('imagePath :>> ', imagePath);
+    console.log('metadata :>> ', metadata);
+    console.log('========');
     const imageTx = await uploadImage(this.arweaveInstance, this.key, imagePath);
+    console.log('back in uploadSingleImagePathAndMetadataObject, just got imageTx:', imageTx);
+    
     const imageURI = getTxnURI(imageTx, this.isMainnet);
+    console.log('imageURI :>> ', imageURI);
     const metadataToUpload = updateMetadataWithImageURI(metadata, imageURI);
+    console.log('metadataToUpload :>> ', metadataToUpload);
     const metadataTx = await uploadSingleMetadata(this.arweaveInstance, this.key, metadataToUpload);
+    console.log('metadataTx :>> ', metadataTx);
     return getTxnURI(metadataTx, this.isMainnet);
   };
 
