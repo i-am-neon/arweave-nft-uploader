@@ -30,7 +30,7 @@ export default class ArweaveNftUploader {
     console.log('========');
     const imageTx = await uploadImage(this.arweaveInstance, this.key, imagePath);
     console.log('back in uploadSingleImagePathAndMetadataObject, just got imageTx:', imageTx);
-    
+
     const imageURI = getTxnURI(imageTx, this.isMainnet);
     console.log('imageURI :>> ', imageURI);
     const metadataToUpload = updateMetadataWithImageURI(metadata, imageURI);
