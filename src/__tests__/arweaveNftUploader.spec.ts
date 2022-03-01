@@ -1,6 +1,5 @@
 import * as dataUploader from '../utils/dataUploader';
 import * as fileUtils from '../utils/fileUtils';
-import * as arweaveUtils from '../utils/arweaveUtils';
 import testArweaveKey from '../testData/testArweaveKey.json';
 import Arweave from 'arweave';
 import { ARLOCAL_BASE_URL } from '../constants';
@@ -26,7 +25,6 @@ describe('arweaveNftUploader not mainnet', () => {
   it('should throw an error if images and metadata count are mismatched', async () => {
     const imagePath = 'src/testData/mismatched/twoImages';
     const fullMetadataPath = 'src/testData/mismatched/threeMetadata.json';
-    const isProd = false;
 
     expect(
       async () => await arweaveNftUploader.uploadImageDirAndFullMetadataFile(imagePath, fullMetadataPath),
@@ -45,8 +43,6 @@ describe('arweaveNftUploader not mainnet', () => {
     jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx));
 
     const actualMetadataURI = await arweaveNftUploader.uploadSingleImageAndMetadataObject(
-      arweave,
-      testArweaveKey,
       imagePath,
       singleMetadata,
       isProd,

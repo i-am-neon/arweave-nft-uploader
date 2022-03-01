@@ -52,7 +52,7 @@ await getCostToSaveBytesToArweaveInDollars(1024);
 You may use ArLocal to make sure your upload is correct before spending real money:
 ```
 const localArweaveInstance = await connectToLocalArweave();
-const testKey = await generateTestKey(localArweave);
+const testKey = await generateTestKey(localArweaveInstance);
 const isMainnet = false;
 
 const arweaveNftUploader = new ArweaveNftUploader(localArweaveInstance, testKey, isMainnet);

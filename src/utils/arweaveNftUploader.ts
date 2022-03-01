@@ -19,17 +19,15 @@ export default class ArweaveNftUploader {
   }
 
   uploadSingleImageAndMetadataObject = async (
-    arweave: Arweave,
-    key: JWKInterface,
     imagePath: string,
     metadata: Metadata,
-    isProd: boolean,
+    isMainnet: boolean,
   ): Promise<string> => {
-    const imageTx = await uploadImage(arweave, key, imagePath);
-    const imageURI = getTxnURI(imageTx, isProd);
+    const imageTx = await uploadImage(this.arweaveInstance, this.key, imagePath);
+    const imageURI = getTxnURI(imageTx, isMainnet);
     const metadataToUpload = updateMetadataWithImageURI(metadata, imageURI);
-    const metadataTx = await uploadSingleMetadata(arweave, key, metadataToUpload);
-    return getTxnURI(metadataTx, isProd);
+    const metadataTx = await uploadSingleMetadata(this.arweaveInstance, this.key, metadataToUpload);
+    return getTxnURI(metadataTx, isMainnet);
   };
 
   uploadImageDirAndFullMetadataFile = async (imageDirPath: string, fullMetadataPath: string): Promise<string[]> => {
@@ -44,8 +42,6 @@ export default class ArweaveNftUploader {
     for (const fileName of imageFiles) {
       const currentMetadata = metadataObjects.shift();
       const metadataURI = await this.uploadSingleImageAndMetadataObject(
-        this.arweaveInstance,
-        this.key,
         imageDirPath + '/' + fileName,
         currentMetadata!,
         this.isMainnet,

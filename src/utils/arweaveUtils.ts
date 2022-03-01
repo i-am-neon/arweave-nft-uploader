@@ -60,8 +60,8 @@ const uploadDataToArweave = async (
   return tx.id;
 };
 
-const getTxnURI = (txn: string, isProd: boolean): string => {
-  if (isProd) {
+const getTxnURI = (txn: string, isMainnet: boolean): string => {
+  if (isMainnet) {
     return ARWEAVE_BASE_URL + txn;
   } else {
     return ARLOCAL_BASE_URL + txn;
