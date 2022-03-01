@@ -48,9 +48,7 @@ describe('arweaveUtils', () => {
     // Allow the uploader to enter the while loop once, then set as complete
     jest.spyOn(txUploader, 'isComplete', 'get').mockReturnValueOnce(false);
     jest.spyOn(txUploader, 'isComplete', 'get').mockReturnValueOnce(true);
-    const spyArweaveCreateTransaction = jest
-      .spyOn(arweave, 'createTransaction')
-      .mockResolvedValueOnce(tx);
+    const spyArweaveCreateTransaction = jest.spyOn(arweave, 'createTransaction').mockResolvedValueOnce(tx);
     const spyTransactionAddTag = jest.spyOn(Transaction.prototype, 'addTag');
     const spyArweaveTransactionsSign = jest.spyOn(arweave.transactions, 'sign').mockResolvedValueOnce();
     const spyArweaveTransactionsGetUploader = jest

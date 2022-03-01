@@ -55,18 +55,14 @@ describe('arweaveNftUploader not mainnet', () => {
     const imagePath = 'src/testData/testImages/1.jpg';
     const metadataPath = 'src/testData/testMetadata/1.json';
     const expectedMetadataURI = 'arweave.net/blah';
-    const expectedMetadata = JSON.parse(readFileSync(metadataPath, 'utf8'))
-    const spyArweaveNftUploaderUploadSingleImagePathAndMetadataObject = jest.spyOn(
-      arweaveNftUploader, 'uploadSingleImagePathAndMetadataObject'
-    ).mockResolvedValue(expectedMetadataURI);
+    const expectedMetadata = JSON.parse(readFileSync(metadataPath, 'utf8'));
+    const spyArweaveNftUploaderUploadSingleImagePathAndMetadataObject = jest
+      .spyOn(arweaveNftUploader, 'uploadSingleImagePathAndMetadataObject')
+      .mockResolvedValue(expectedMetadataURI);
 
-    const actualMetadataURI = await arweaveNftUploader.uploadSingleImagePathAndMetadataPath(
-      imagePath,
-      metadataPath,
-    );
+    const actualMetadataURI = await arweaveNftUploader.uploadSingleImagePathAndMetadataPath(imagePath, metadataPath);
 
-    expect(spyArweaveNftUploaderUploadSingleImagePathAndMetadataObject)
-      .toBeCalledWith(imagePath, expectedMetadata);
+    expect(spyArweaveNftUploaderUploadSingleImagePathAndMetadataObject).toBeCalledWith(imagePath, expectedMetadata);
     expect(expectedMetadataURI).toBe(actualMetadataURI);
   });
 
