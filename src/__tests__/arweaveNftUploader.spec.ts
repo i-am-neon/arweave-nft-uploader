@@ -5,6 +5,7 @@ import Arweave from 'arweave';
 import { ARLOCAL_BASE_URL } from '../constants';
 import ArweaveNftUploader from '../utils/arweaveNftUploader';
 import singleMetadata from '../testData/testMetadata/1.json';
+import { readFileSync } from 'fs';
 
 describe('arweaveNftUploader not mainnet', () => {
   let arweave: Arweave;
@@ -39,16 +40,37 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI = ARLOCAL_BASE_URL + imageTx;
     const metadataTx = 'MetadataTx';
     const expectedMetadataURI = ARLOCAL_BASE_URL + metadataTx;
-    jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx));
-    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx));
+    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx);
+    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx);
 
-    const actualMetadataURI = await arweaveNftUploader.uploadSingleImageAndMetadataObject(
+    const actualMetadataURI = await arweaveNftUploader.uploadSingleImagePathAndMetadataObject(
       imagePath,
       singleMetadata,
       isProd,
     );
 
     expect(spyFileUtilsUpdateMetadataWithImageURI).toBeCalledWith(singleMetadata, expectedImageURI);
+    expect(expectedMetadataURI).toBe(actualMetadataURI);
+  });
+
+  it("should upload an image and the image's metadata using the file paths", async () => {
+    const imagePath = 'src/testData/testImages/1.jpg';
+    const metadataPath = 'src/testData/testMetadata/1.json';
+    const isProd = false;
+    const expectedMetadataURI = 'arweave.net/blah';
+    const expectedMetadata = JSON.parse(readFileSync(metadataPath, 'utf8'))
+    const spyArweaveNftUploaderUploadSingleImagePathAndMetadataObject = jest.spyOn(
+      arweaveNftUploader, 'uploadSingleImagePathAndMetadataObject'
+    ).mockResolvedValue(expectedMetadataURI);
+
+    const actualMetadataURI = await arweaveNftUploader.uploadSingleImagePathAndMetadataPath(
+      imagePath,
+      metadataPath,
+      isProd,
+    );
+
+    expect(spyArweaveNftUploaderUploadSingleImagePathAndMetadataObject)
+      .toBeCalledWith(imagePath, expectedMetadata, isProd);
     expect(expectedMetadataURI).toBe(actualMetadataURI);
   });
 
@@ -62,32 +84,32 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI1 = ARLOCAL_BASE_URL + imageTx1;
     const metadataTx1 = 'MetadataTx1';
     const expectedMetadataURI1 = ARLOCAL_BASE_URL + metadataTx1;
-    jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx1));
-    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx1));
+    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx1);
+    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx1);
 
     // Second image and metadata
     const imageTx2 = 'ImageTx2';
     const expectedImageURI2 = ARLOCAL_BASE_URL + imageTx2;
     const metadataTx2 = 'MetadataTx2';
     const expectedMetadataURI2 = ARLOCAL_BASE_URL + metadataTx2;
-    jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx2));
-    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx2));
+    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx2);
+    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx2);
 
     // Third image and metadata
     const imageTx3 = 'ImageTx3';
     const expectedImageURI3 = ARLOCAL_BASE_URL + imageTx3;
     const metadataTx3 = 'MetadataTx3';
     const expectedMetadataURI3 = ARLOCAL_BASE_URL + metadataTx3;
-    jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx3));
-    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx3));
+    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx3);
+    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx3);
 
     // Fourth image and metadata
     const imageTx4 = 'ImageTx4';
     const expectedImageURI4 = ARLOCAL_BASE_URL + imageTx4;
     const metadataTx4 = 'MetadataTx4';
     const expectedMetadataURI4 = ARLOCAL_BASE_URL + metadataTx4;
-    jest.spyOn(dataUploader, 'uploadImage').mockReturnValueOnce(Promise.resolve(imageTx4));
-    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockReturnValueOnce(Promise.resolve(metadataTx4));
+    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx4);
+    jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx4);
 
     const txnList = await arweaveNftUploader.uploadImageDirAndFullMetadataFile(imageDirPath, fullMetadataPath);
 

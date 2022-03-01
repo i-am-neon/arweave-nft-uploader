@@ -22,7 +22,7 @@ describe('Arweave cost estimator', () => {
       },
     },
   };
-  jest.spyOn(axios, 'get').mockReturnValue(Promise.resolve(axiosReturnValue));
+  jest.spyOn(axios, 'get').mockResolvedValue(axiosReturnValue);
 
   it('should convert Winstons to AR', () => {
     const winstons = 500000;
@@ -45,7 +45,7 @@ describe('Arweave cost estimator', () => {
     const spyGileUtilsGetPathSizeInBytes = jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValueOnce(bytes);
     const spyFileUtilsGetArweavePriceForBytesInWinstons = jest
       .spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons')
-      .mockReturnValueOnce(Promise.resolve(costInWinstons));
+      .mockResolvedValueOnce(costInWinstons);
 
     const actualCost = await getCostToSavePathToArweaveInWinstons('');
 
@@ -58,7 +58,7 @@ describe('Arweave cost estimator', () => {
     const bytes = 100;
     const costInWinstons = 99999;
     jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValue(bytes);
-    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockReturnValue(Promise.resolve(costInWinstons));
+    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockResolvedValue(costInWinstons);
     const expectedCost = await getCostToSavePathToArweaveInWinstons('').then((costInWinstons: number) =>
       winstonsToAR(costInWinstons),
     );
@@ -74,7 +74,7 @@ describe('Arweave cost estimator', () => {
     const costInAR = costInWinstons / WINSTONS_PER_AR;
     const expectedCostInDollars = costInAR * mockedARCostInDollars;
     jest.spyOn(fileUtils, 'getPathSizeInBytes').mockReturnValueOnce(bytes);
-    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockReturnValueOnce(Promise.resolve(costInWinstons));
+    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockResolvedValueOnce(costInWinstons);
 
     const actualCostInDollars = await getCostToSavePathToArweaveInDollars('');
 
@@ -86,7 +86,7 @@ describe('Arweave cost estimator', () => {
     const costInWinstons = 99999;
     const spyFileUtilsGetArweavePriceForBytesInWinstons = jest
       .spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons')
-      .mockReturnValue(Promise.resolve(costInWinstons));
+      .mockResolvedValue(costInWinstons);
     const expectedCost = await getCostToSavePathToArweaveInWinstons('').then((costWinstons: number) =>
       winstonsToAR(costWinstons),
     );
@@ -102,7 +102,7 @@ describe('Arweave cost estimator', () => {
     const costInWinstons = 50000;
     const costInAR = costInWinstons / WINSTONS_PER_AR;
     const expectedCostInDollars = costInAR * mockedARCostInDollars;
-    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockReturnValueOnce(Promise.resolve(costInWinstons));
+    jest.spyOn(arweaveUtils, 'getArweavePriceForBytesInWinstons').mockResolvedValueOnce(costInWinstons);
 
     const actualCostInDollars = await getCostToSaveBytesToArweaveInDollars(bytes);
 

@@ -1,6 +1,6 @@
 import Arweave from 'arweave';
 import { JWKInterface } from 'arweave/node/lib/wallet';
-import { readdirSync } from 'fs';
+import { readdirSync, readFileSync } from 'fs';
 import { connectToArweave, connectToLocalArweave } from '..';
 import { Metadata } from '../types/Metadata';
 import { getTxnURI } from './arweaveUtils';
@@ -18,7 +18,19 @@ export default class ArweaveNftUploader {
     this.isMainnet = _isMainnet;
   }
 
-  uploadSingleImageAndMetadataObject = async (
+  uploadSingleImagePathAndMetadataPath = async (
+    imagePath: string,
+    metadataPath: string,
+    isMainnet: boolean,
+  ): Promise<string> => {
+    return await this.uploadSingleImagePathAndMetadataObject(
+      imagePath,
+      JSON.parse(readFileSync(metadataPath, 'utf8')),
+      isMainnet
+    )
+  }
+
+  uploadSingleImagePathAndMetadataObject = async (
     imagePath: string,
     metadata: Metadata,
     isMainnet: boolean,
@@ -41,7 +53,7 @@ export default class ArweaveNftUploader {
     const metadataURIs: string[] = [];
     for (const fileName of imageFiles) {
       const currentMetadata = metadataObjects.shift();
-      const metadataURI = await this.uploadSingleImageAndMetadataObject(
+      const metadataURI = await this.uploadSingleImagePathAndMetadataObject(
         imageDirPath + '/' + fileName,
         currentMetadata!,
         this.isMainnet,

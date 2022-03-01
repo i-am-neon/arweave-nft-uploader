@@ -29,7 +29,7 @@ describe('arweaveUtils', () => {
     const costInWinstons = 5000;
     const bytes = 123;
     const axiosReturnValue = { data: costInWinstons.toString() };
-    const spyAxiosGet = jest.spyOn(axios, 'get').mockReturnValueOnce(Promise.resolve(axiosReturnValue));
+    const spyAxiosGet = jest.spyOn(axios, 'get').mockResolvedValueOnce(axiosReturnValue);
 
     const result = await getArweavePriceForBytesInWinstons(bytes);
 
@@ -50,15 +50,15 @@ describe('arweaveUtils', () => {
     jest.spyOn(txUploader, 'isComplete', 'get').mockReturnValueOnce(true);
     const spyArweaveCreateTransaction = jest
       .spyOn(arweave, 'createTransaction')
-      .mockReturnValueOnce(Promise.resolve(tx));
+      .mockResolvedValueOnce(tx);
     const spyTransactionAddTag = jest.spyOn(Transaction.prototype, 'addTag');
-    const spyArweaveTransactionsSign = jest.spyOn(arweave.transactions, 'sign').mockReturnValueOnce(Promise.resolve());
+    const spyArweaveTransactionsSign = jest.spyOn(arweave.transactions, 'sign').mockResolvedValueOnce();
     const spyArweaveTransactionsGetUploader = jest
       .spyOn(arweave.transactions, 'getUploader')
-      .mockReturnValueOnce(Promise.resolve(txUploader));
+      .mockResolvedValueOnce(txUploader);
     const spyTransactionUploaderUploadChunk = jest
       .spyOn(TransactionUploader.prototype, 'uploadChunk')
-      .mockReturnValue(Promise.resolve());
+      .mockResolvedValueOnce();
 
     const txId = await uploadDataToArweave(arweave, key, data, contentType);
 
@@ -72,7 +72,7 @@ describe('arweaveUtils', () => {
 
   describe('ArLocal connection', () => {
     it('should start an ArLocal instance and initialize Arweave on localhost', async () => {
-      const spyArLocalStart = jest.spyOn(ArLocal.prototype, 'start').mockReturnValueOnce(Promise.resolve());
+      const spyArLocalStart = jest.spyOn(ArLocal.prototype, 'start').mockResolvedValueOnce();
       const expectedArweaveInstance = new Arweave({});
       const spyArweaveInit = jest.spyOn(Arweave, 'init').mockReturnValueOnce(expectedArweaveInstance);
       const expectedArweaveInitParams = {

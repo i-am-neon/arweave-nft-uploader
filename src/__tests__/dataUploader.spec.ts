@@ -20,7 +20,7 @@ describe('dataUploader', () => {
     const expectedImageTx = '123abc';
     const spyArweaveUtilsUploadDataToArweave = jest
       .spyOn(arweaveUtils, 'uploadDataToArweave')
-      .mockReturnValueOnce(Promise.resolve(expectedImageTx));
+      .mockResolvedValueOnce(expectedImageTx);
 
     const actualImageTx = await uploadImage(arweave, testArweaveKey, path);
 
@@ -39,7 +39,7 @@ describe('dataUploader', () => {
     const expectedMetadataTx = '123abc';
     const spyArweaveUtilsUploadDataToArweave = jest
       .spyOn(arweaveUtils, 'uploadDataToArweave')
-      .mockReturnValueOnce(Promise.resolve(expectedMetadataTx));
+      .mockResolvedValueOnce(expectedMetadataTx);
 
     const actualMetadataTx = await uploadSingleMetadata(arweave, testArweaveKey, testMetadata);
 
