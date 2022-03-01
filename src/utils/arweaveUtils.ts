@@ -21,7 +21,7 @@ const connectToArweave = (): Arweave => {
   return arweave;
 };
 
-const connectToLocalArweave = async (): Promise<Arweave> => {
+const connectToLocalArweave = async (useLogging: boolean = true): Promise<Arweave> => {
   const arLocal = new ArLocal();
   await arLocal.start();
 
@@ -29,7 +29,7 @@ const connectToLocalArweave = async (): Promise<Arweave> => {
     host: 'localhost',
     port: 1984,
     protocol: 'http',
-    logging: true,
+    logging: useLogging,
   });
 };
 

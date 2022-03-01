@@ -70,6 +70,7 @@ describe('arweaveUtils', () => {
 
   describe('ArLocal connection', () => {
     it('should start an ArLocal instance and initialize Arweave on localhost', async () => {
+      const useLogging = true;
       const spyArLocalStart = jest.spyOn(ArLocal.prototype, 'start').mockResolvedValueOnce();
       const expectedArweaveInstance = new Arweave({});
       const spyArweaveInit = jest.spyOn(Arweave, 'init').mockReturnValueOnce(expectedArweaveInstance);
@@ -77,10 +78,10 @@ describe('arweaveUtils', () => {
         host: 'localhost',
         port: 1984,
         protocol: 'http',
-        logging: true,
+        logging: useLogging,
       };
 
-      const actualArweaveInstance = await connectToLocalArweave();
+      const actualArweaveInstance = await connectToLocalArweave(useLogging);
 
       expect(spyArLocalStart).toBeCalledTimes(1);
       expect(spyArweaveInit).toBeCalledWith(expectedArweaveInitParams);

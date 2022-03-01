@@ -51,7 +51,7 @@ await getCostToSaveBytesToArweaveInDollars(1024);
 
 You may use ArLocal to make sure your upload is correct before spending real money:
 ```
-const localArweaveInstance = await connectToLocalArweave();
+const localArweaveInstance = await connectToLocalArweave(); // can pass in false to turn off verbose logs
 const testKey = await generateTestKey(localArweaveInstance);
 const isMainnet = false;
 
