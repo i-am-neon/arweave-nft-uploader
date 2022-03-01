@@ -5,12 +5,7 @@ import {
   getCostToSaveBytesToArweaveInAR,
   getCostToSaveBytesToArweaveInDollars,
 } from './utils/costEstimator';
-import {
-  connectToLocalArweave,
-  connectToArweave,
-  mintTestWinstonsToKey,
-  generateTestKey
-} from './utils/arweaveUtils';
+import { connectToLocalArweave, connectToArweave, mintTestWinstonsToKey, generateTestKey } from './utils/arweaveUtils';
 import ArweaveNftUploader from './utils/arweaveNftUploader';
 import { WINSTONS_PER_AR } from './constants';
 
