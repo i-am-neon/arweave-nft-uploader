@@ -5,11 +5,11 @@ import { Metadata } from '../types/Metadata';
 import { uploadDataToArweave } from './arweaveUtils';
 import { getImageContentType } from './fileUtils';
 
-const uploadImage = async (arweave: Arweave, key: JWKInterface, path: string): Promise<string> => {
+const uploadImageFromPath = async (arweave: Arweave, key: JWKInterface, path: string): Promise<string> => {
   const data = readFileSync(path);
   const contentType = getImageContentType(path);
   console.log('========');
-  console.log('in uploadImage, about to upload data to arweave:');
+  console.log('in uploadImageFromPath, about to upload data to arweave:');
   console.log('data :>> ', data);
   console.log('contentType :>> ', contentType);
   console.log('========');
@@ -20,7 +20,7 @@ const uploadSingleMetadata = async (arweave: Arweave, key: JWKInterface, metadat
   const metadataString = JSON.stringify(metadata);
   const contentType = 'text/json';
   console.log('========');
-  console.log('in uploadImage, about to upload data to arweave:');
+  console.log('in uploadImageFromPath, about to upload data to arweave:');
   console.log('metadataString :>> ', metadataString);
   console.log('contentType :>> ', contentType);
   console.log('========');
@@ -28,4 +28,4 @@ const uploadSingleMetadata = async (arweave: Arweave, key: JWKInterface, metadat
   return await uploadDataToArweave(arweave, key, metadataString, contentType);
 };
 
-export { uploadImage, uploadSingleMetadata };
+export { uploadImageFromPath, uploadSingleMetadata };

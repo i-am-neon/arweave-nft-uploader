@@ -4,7 +4,7 @@ import { readdirSync, readFileSync } from 'fs';
 import { connectToArweave, connectToLocalArweave } from '..';
 import { Metadata } from '../types/Metadata';
 import { getTxnURI } from './arweaveUtils';
-import { uploadImage, uploadSingleMetadata } from './dataUploader';
+import { uploadImageFromPath, uploadSingleMetadata } from './dataUploader';
 import { getListFromFullMetadata, updateMetadataWithImageURI } from './fileUtils';
 
 export default class ArweaveNftUploader {
@@ -28,7 +28,7 @@ export default class ArweaveNftUploader {
     console.log('imagePath :>> ', imagePath);
     console.log('metadata :>> ', metadata);
     console.log('========');
-    const imageTx = await uploadImage(this.arweaveInstance, this.key, imagePath);
+    const imageTx = await uploadImageFromPath(this.arweaveInstance, this.key, imagePath);
     console.log('back in uploadSingleImagePathAndMetadataObject, just got imageTx:', imageTx);
 
     const imageURI = getTxnURI(imageTx, this.isMainnet);

@@ -39,7 +39,7 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI = ARLOCAL_BASE_URL + imageTx;
     const metadataTx = 'MetadataTx';
     const expectedMetadataURI = ARLOCAL_BASE_URL + metadataTx;
-    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx);
+    jest.spyOn(dataUploader, 'uploadImageFromPath').mockResolvedValueOnce(imageTx);
     jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx);
 
     const actualMetadataURI = await arweaveNftUploader.uploadSingleImagePathAndMetadataObject(
@@ -76,7 +76,7 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI1 = ARLOCAL_BASE_URL + imageTx1;
     const metadataTx1 = 'MetadataTx1';
     const expectedMetadataURI1 = ARLOCAL_BASE_URL + metadataTx1;
-    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx1);
+    jest.spyOn(dataUploader, 'uploadImageFromPath').mockResolvedValueOnce(imageTx1);
     jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx1);
 
     // Second image and metadata
@@ -84,7 +84,7 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI2 = ARLOCAL_BASE_URL + imageTx2;
     const metadataTx2 = 'MetadataTx2';
     const expectedMetadataURI2 = ARLOCAL_BASE_URL + metadataTx2;
-    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx2);
+    jest.spyOn(dataUploader, 'uploadImageFromPath').mockResolvedValueOnce(imageTx2);
     jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx2);
 
     // Third image and metadata
@@ -92,7 +92,7 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI3 = ARLOCAL_BASE_URL + imageTx3;
     const metadataTx3 = 'MetadataTx3';
     const expectedMetadataURI3 = ARLOCAL_BASE_URL + metadataTx3;
-    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx3);
+    jest.spyOn(dataUploader, 'uploadImageFromPath').mockResolvedValueOnce(imageTx3);
     jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx3);
 
     // Fourth image and metadata
@@ -100,7 +100,7 @@ describe('arweaveNftUploader not mainnet', () => {
     const expectedImageURI4 = ARLOCAL_BASE_URL + imageTx4;
     const metadataTx4 = 'MetadataTx4';
     const expectedMetadataURI4 = ARLOCAL_BASE_URL + metadataTx4;
-    jest.spyOn(dataUploader, 'uploadImage').mockResolvedValueOnce(imageTx4);
+    jest.spyOn(dataUploader, 'uploadImageFromPath').mockResolvedValueOnce(imageTx4);
     jest.spyOn(dataUploader, 'uploadSingleMetadata').mockResolvedValueOnce(metadataTx4);
 
     const txnList = await arweaveNftUploader.uploadImageDirAndFullMetadataFile(imageDirPath, fullMetadataPath);

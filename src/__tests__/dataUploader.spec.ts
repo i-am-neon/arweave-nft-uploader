@@ -3,7 +3,7 @@ const Arweave = require('arweave');
 import { readFileSync } from 'fs';
 import * as arweaveUtils from '../utils/arweaveUtils';
 import testArweaveKey from '../testData/testArweaveKey.json';
-import { uploadImage, uploadSingleMetadata } from '../utils/dataUploader';
+import { uploadImageFromPath, uploadSingleMetadata } from '../utils/dataUploader';
 import testMetadata from '../testData/testMetadata/1.json';
 
 describe('dataUploader', () => {
@@ -22,7 +22,7 @@ describe('dataUploader', () => {
       .spyOn(arweaveUtils, 'uploadDataToArweave')
       .mockResolvedValueOnce(expectedImageTx);
 
-    const actualImageTx = await uploadImage(arweave, testArweaveKey, path);
+    const actualImageTx = await uploadImageFromPath(arweave, testArweaveKey, path);
 
     expect(spyArweaveUtilsUploadDataToArweave).toBeCalledWith(
       arweave,
