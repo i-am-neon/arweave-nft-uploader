@@ -110,10 +110,5 @@ You're done! All you need to do is use those Arweave URIs as the token URIs in y
 
 When you're ready to release a new version, use:
 ```
-npm version patch
-```
-
-Which will trigger the `preversion`, `version`, and `postversion` scripts to run. Once successful, publish:
-```
-npm publish
+npm pushNextVersion
 ```

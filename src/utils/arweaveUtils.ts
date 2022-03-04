@@ -45,29 +45,20 @@ const uploadDataToArweave = async (
   data: string | Buffer,
   contentType: string,
 ): Promise<string> => {
-  console.log('========');
-  console.log('in uploadDataToArweave');
 
   const tx = await arweave.createTransaction({ data }, key);
-  console.log('transaction created');
 
   tx.addTag('Content-Type', contentType);
-  console.log('content type added');
 
   await arweave.transactions.sign(tx, key);
-  console.log('transaction signed');
 
   const uploader = await arweave.transactions.getUploader(tx);
 
   while (!uploader.isComplete) {
-    console.log('uploading chunk...');
 
     await uploader.uploadChunk();
   }
 
-  console.log('upload complete. Returning ID:');
-  console.log('tx.id :>> ', tx.id);
-  console.log('========');
 
   return tx.id;
 };
