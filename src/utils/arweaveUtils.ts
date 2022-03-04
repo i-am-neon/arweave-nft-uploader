@@ -45,7 +45,6 @@ const uploadDataToArweave = async (
   data: string | Buffer,
   contentType: string,
 ): Promise<string> => {
-
   const tx = await arweave.createTransaction({ data }, key);
 
   tx.addTag('Content-Type', contentType);
@@ -55,10 +54,8 @@ const uploadDataToArweave = async (
   const uploader = await arweave.transactions.getUploader(tx);
 
   while (!uploader.isComplete) {
-
     await uploader.uploadChunk();
   }
-
 
   return tx.id;
 };
