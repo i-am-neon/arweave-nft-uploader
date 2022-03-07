@@ -82,10 +82,7 @@ describe('arweaveUtils', () => {
         logging: useLogging,
       };
 
-      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(
-        shouldStartNewArLocalInstance,
-        useLogging
-      );
+      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(shouldStartNewArLocalInstance, useLogging);
 
       expect(spyArLocalStart).toBeCalledTimes(1);
       expect(spyArweaveInit).toBeCalledWith(expectedArweaveInitParams);
@@ -109,10 +106,7 @@ describe('arweaveUtils', () => {
         logging: useLogging,
       };
 
-      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(
-        shouldStartNewArLocalInstance,
-        useLogging
-      );
+      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(shouldStartNewArLocalInstance, useLogging);
 
       expect(spyArweaveInit).toBeCalledWith(expectedArweaveInitParams);
       expect(expectedArweaveInstance).toBe(returnedArweaveAndArLocalInstances.arweave);
