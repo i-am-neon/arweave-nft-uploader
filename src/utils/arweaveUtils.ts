@@ -21,16 +21,21 @@ const connectToArweave = (): Arweave => {
   return arweave;
 };
 
-const connectToLocalArweave = async (useLogging: boolean = true): Promise<Arweave> => {
+const connectToLocalArweave = async (useLogging: boolean = true): Promise<{arweave: Arweave, arLocal: ArLocal}> => {
   const arLocal = new ArLocal();
   await arLocal.start();
 
-  return Arweave.init({
+  const arweave = Arweave.init({
     host: 'localhost',
     port: 1984,
     protocol: 'http',
     logging: useLogging,
   });
+
+  return {
+    arweave,
+    arLocal
+  }
 };
 
 const generateTestKey = async (arweave: Arweave): Promise<JWKInterface> => {
