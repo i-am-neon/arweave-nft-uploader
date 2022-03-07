@@ -70,8 +70,8 @@ describe('arweaveUtils', () => {
 
   describe('ArLocal connection', () => {
     it('should start an ArLocal instance and initialize Arweave on localhost', async () => {
+      const shouldStartNewArLocalInstance = true;
       const useLogging = true;
-      // const spyArLocalNew = jest.spyOn(ArLocal, '').mockReturnValueOnce(expectedArLocalInstance);
       const spyArLocalStart = jest.spyOn(ArLocal.prototype, 'start').mockResolvedValueOnce();
       const expectedArweaveInstance = new Arweave({});
       const spyArweaveInit = jest.spyOn(Arweave, 'init').mockReturnValueOnce(expectedArweaveInstance);
@@ -82,7 +82,10 @@ describe('arweaveUtils', () => {
         logging: useLogging,
       };
 
-      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(useLogging);
+      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(
+        shouldStartNewArLocalInstance,
+        useLogging
+      );
 
       expect(spyArLocalStart).toBeCalledTimes(1);
       expect(spyArweaveInit).toBeCalledWith(expectedArweaveInitParams);
@@ -90,7 +93,30 @@ describe('arweaveUtils', () => {
 
       // Roundabout way of testing that the returned ArLocal is of type ArLocal
       // Need to find a way to spy on the ArLocal class' constructor and return a specific object
-      expect(Object.keys(returnedArweaveAndArLocalInstances.arLocal)).toEqual(Object.keys(new ArLocal()));
+      expect(Object.keys(returnedArweaveAndArLocalInstances.arLocal!)).toEqual(Object.keys(new ArLocal()));
+    });
+
+    it(`should start an ArLocal instance and initialize Arweave on localhost
+        without a new ArLocal instance and without logging`, async () => {
+      const shouldStartNewArLocalInstance = false;
+      const useLogging = false;
+      const expectedArweaveInstance = new Arweave({});
+      const spyArweaveInit = jest.spyOn(Arweave, 'init').mockReturnValueOnce(expectedArweaveInstance);
+      const expectedArweaveInitParams = {
+        host: 'localhost',
+        port: 1984,
+        protocol: 'http',
+        logging: useLogging,
+      };
+
+      const returnedArweaveAndArLocalInstances = await connectToLocalArweave(
+        shouldStartNewArLocalInstance,
+        useLogging
+      );
+
+      expect(spyArweaveInit).toBeCalledWith(expectedArweaveInitParams);
+      expect(expectedArweaveInstance).toBe(returnedArweaveAndArLocalInstances.arweave);
+      expect(returnedArweaveAndArLocalInstances.arLocal).toEqual(null);
     });
 
     it('should create a new Arweave test wallet and load with money', async () => {
