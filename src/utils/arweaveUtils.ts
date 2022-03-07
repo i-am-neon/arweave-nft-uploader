@@ -21,7 +21,7 @@ const connectToArweave = (): Arweave => {
   return arweave;
 };
 
-const connectToLocalArweave = async (useLogging: boolean = true): Promise<{arweave: Arweave, arLocal: ArLocal}> => {
+const connectToLocalArweave = async (useLogging: boolean = true): Promise<{ arweave: Arweave; arLocal: ArLocal }> => {
   const arLocal = new ArLocal();
   await arLocal.start();
 
@@ -34,8 +34,8 @@ const connectToLocalArweave = async (useLogging: boolean = true): Promise<{arwea
 
   return {
     arweave,
-    arLocal
-  }
+    arLocal,
+  };
 };
 
 const generateTestKey = async (arweave: Arweave): Promise<JWKInterface> => {
